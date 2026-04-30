@@ -4,12 +4,18 @@ import fr.jeff.jobdashapi.model.enums.ApplicationStatus;
 import fr.jeff.jobdashapi.model.enums.ContractType;
 import fr.jeff.jobdashapi.model.enums.PostulationCanal;
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "applications")
 public class Application {
@@ -19,8 +25,8 @@ public class Application {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -39,7 +45,7 @@ public class Application {
     private ContractType contractType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", nullable = false, columnDefinition = "varchar(50) default 'A_CLASSER'")
     private ApplicationStatus status;
 
     @Enumerated(EnumType.STRING)
@@ -53,15 +59,15 @@ public class Application {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ApplicationDocument> documents;
+    @OneToOne(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ApplicationAdvisorOffer applicationAdvisorOffer;
 
-    @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts;
 
-    @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Interview> interviews;
 
-    @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ApplicationAdvisorOffer> applicationAdvisorOffers;
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ApplicationDocument> documents;
 }

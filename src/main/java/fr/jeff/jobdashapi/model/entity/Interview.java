@@ -2,10 +2,16 @@ package fr.jeff.jobdashapi.model.entity;
 
 import fr.jeff.jobdashapi.model.enums.InterviewType;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "interviews")
 public class Interview {

@@ -1,12 +1,17 @@
 package fr.jeff.jobdashapi.model.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "class_room")
+@Table(name = "class_rooms")
 public class ClassRoom {
 
     @Id
@@ -16,13 +21,10 @@ public class ClassRoom {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_id", nullable = false)
-    private School school;
-
     @Column(name = "year", nullable = false)
     private String year;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "classRooms")
-    private List<AdvisorOffer> advisorOffers;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id", nullable = false)
+    private School school;
 }

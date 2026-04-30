@@ -1,23 +1,26 @@
 package fr.jeff.jobdashapi.model.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.UUID;
+import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "students")
-public class Student {
-
-    @Id
-    @Column(name = "user_id")
-    private UUID id;
-
-    @MapsId
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+@PrimaryKeyJoinColumn(name = "user_id")
+public class Student extends User {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "class_id", nullable = false)
+    @JoinColumn(name = "class_room_id", nullable = false)
     private ClassRoom classRoom;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Application> applications;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SearchCriteria> searchCriterias;
 }

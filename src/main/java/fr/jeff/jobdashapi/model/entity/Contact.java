@@ -1,9 +1,15 @@
 package fr.jeff.jobdashapi.model.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "contacts")
 public class Contact {
@@ -24,6 +30,9 @@ public class Contact {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "linkedin")
+    private String linkedin;
 
     @Column(name = "is_interlocutor_convention", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isInterlocutorConvention = false;

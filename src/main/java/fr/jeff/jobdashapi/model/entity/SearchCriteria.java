@@ -2,10 +2,16 @@ package fr.jeff.jobdashapi.model.entity;
 
 import fr.jeff.jobdashapi.model.enums.ContractType;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "search_criteria")
 public class SearchCriteria {
@@ -15,8 +21,8 @@ public class SearchCriteria {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
 
     @Column(name = "entitled_position", nullable = false)
     private String entitledPosition;
@@ -25,7 +31,7 @@ public class SearchCriteria {
     private String location;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "contract_type", nullable = false)
+    @Column(name = "contract_type")
     private ContractType contractType;
 
     @Column(name = "last_execution")

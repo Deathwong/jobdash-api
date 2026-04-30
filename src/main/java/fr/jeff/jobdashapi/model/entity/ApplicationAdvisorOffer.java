@@ -1,11 +1,17 @@
 package fr.jeff.jobdashapi.model.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "application_advisor_offer")
+@Table(name = "application_advisor_offers")
 public class ApplicationAdvisorOffer {
 
     @Id
@@ -13,7 +19,7 @@ public class ApplicationAdvisorOffer {
     private UUID id;
 
     @MapsId
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
