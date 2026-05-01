@@ -20,7 +20,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "dtype")
 public abstract class User implements UserDetails {
 
     @Id
@@ -53,13 +52,13 @@ public abstract class User implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return this.email;
+    public String getPassword() {
+        return this.password;
     }
 
     @Override
-    public String getPassword() {
-        return this.password;
+    public String getUsername() {
+        return this.email;
     }
 
     @Override

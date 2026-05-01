@@ -34,6 +34,7 @@ public class Contact {
     @Column(name = "linkedin")
     private String linkedin;
 
+    @Builder.Default
     @Column(name = "is_interlocutor_convention", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isInterlocutorConvention = false;
 }
